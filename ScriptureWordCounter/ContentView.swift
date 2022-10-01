@@ -2,20 +2,27 @@
 //  ContentView.swift
 //  ScriptureWordCounter
 //
-//  Created by Clancy Thomas on 9/27/22.
+//  Created by Clancy Thomas on 10/1/22.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            FunFactView()
+                .tabItem {
+                    Label("Fun Facts", systemImage: "star")
+                }
         }
-        .padding()
     }
 }
 
