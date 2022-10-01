@@ -18,11 +18,16 @@ struct ContentView: View {
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
+            SearchView()
+                .tabItem {
+                    Label("Saved", systemImage: "bookmark")
+                }
             FunFactView()
                 .tabItem {
-                    Label("Fun Facts", systemImage: "star")
+                    Label("Fun Facts", systemImage: "lightbulb")
                 }
         }
+        
     }
 }
 
