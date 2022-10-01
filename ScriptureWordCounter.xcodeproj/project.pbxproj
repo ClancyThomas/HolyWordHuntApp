@@ -14,6 +14,7 @@
 		8FFC0BB128E8D3E8003BE0DB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */; };
 		8FFC0BB328E8D701003BE0DB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB228E8D701003BE0DB /* ContentView.swift */; };
 		8FFC0BB528E8D89C003BE0DB /* FunFactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB428E8D89C003BE0DB /* FunFactView.swift */; };
+		8FFC0BB728E8E5AE003BE0DB /* SavedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8FFC0BB228E8D701003BE0DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8FFC0BB428E8D89C003BE0DB /* FunFactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunFactView.swift; sourceTree = "<group>"; };
+		8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				8FFC0BB228E8D701003BE0DB /* ContentView.swift */,
 				8FB66C5328E3F0CC008029B1 /* HomeView.swift */,
 				8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */,
+				8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */,
 				8FFC0BB428E8D89C003BE0DB /* FunFactView.swift */,
 				8FB66C5528E3F0CE008029B1 /* Assets.xcassets */,
 				8FB66C5728E3F0CE008029B1 /* Preview Content */,
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FFC0BB728E8E5AE003BE0DB /* SavedSearchView.swift in Sources */,
 				8FFC0BB528E8D89C003BE0DB /* FunFactView.swift in Sources */,
 				8FB66C5428E3F0CC008029B1 /* HomeView.swift in Sources */,
 				8FFC0BB128E8D3E8003BE0DB /* SearchView.swift in Sources */,
