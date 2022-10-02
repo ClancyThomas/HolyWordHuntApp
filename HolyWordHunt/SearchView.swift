@@ -7,21 +7,7 @@
 
 import SwiftUI
 
-// Custom button with a simple animation
-struct CustomButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.title2)
-            .fontWeight(.bold)
-            .padding()
-            .frame(width: 300, height: 60)
-            .background(Color(red: 179/255, green: 150/255, blue: 89/255))
-            .foregroundColor(.black)
-            .cornerRadius(12)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
-            .animation(.easeIn(duration: 0.1), value: 0.98)
-    }
-}
+
 
 struct SearchView: View {
     
@@ -32,12 +18,15 @@ struct SearchView: View {
     @State var pearlOfGreatPrice = false
     @State var oldTestament = false
     @State var newTestament = false
-    @State var result = 1000
+    @State var wordCount = 0
+    @State var totalCount = 0
+    @State var percentage = 0.00
     
     var databaseWorker:DatabaseWorker = DatabaseWorker()
     
     
     var body: some View {
+        ScrollView {
             VStack {
                 Spacer()
                 VStack {
@@ -94,14 +83,29 @@ struct SearchView: View {
                 }
                 
                 Spacer()
-                Text("Result: \(result)")
-                Button("Search") {
-                    result = databaseWorker.query()
+                
+                Text("Total verses: \(totalCount)")
+                Text("Found in: \(wordCount) verses")
+                if(totalCount != 0) {
+                    Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.2f")% of verses")
                 }
-                .buttonStyle(CustomButton())
+                
+                Button("Search") {
+                    wordCount = databaseWorker.queryWord(word: wordToSearch)
+                    totalCount = databaseWorker.queryAll()
+                }
+                .buttonStyle(SearchButton())
                 Spacer()
             }
+        }
+        .overlay(
+            NavigationBar()
+        )
+        
+        
+        
     }
+    
     
 }
 
