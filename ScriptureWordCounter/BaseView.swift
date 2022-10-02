@@ -18,10 +18,6 @@ struct BaseView: View {
                 .tabItem {
                     Label("Saved", systemImage: "bookmark")
                 }
-            FunFactView()
-                .tabItem {
-                    Label("Fun Facts", systemImage: "lightbulb")
-                }
         }
         
     }
