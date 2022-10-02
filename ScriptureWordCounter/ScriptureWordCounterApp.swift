@@ -11,7 +11,7 @@ import SwiftUI
 struct ScriptureWordCounterApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            BaseView()
         }
     }
 }
