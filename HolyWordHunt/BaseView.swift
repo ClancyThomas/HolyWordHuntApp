@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  ScriptureWordCounter
+//  HolyWordHunt
 //
 //  Created by Clancy Thomas on 10/1/22.
 //

@@ -1,6 +1,6 @@
 //
 //  SearchView.swift
-//  ScriptureWordCounter
+//  HolyWordHunt
 //
 //  Created by Clancy Thomas on 10/1/22.
 //
@@ -32,6 +32,9 @@ struct SearchView: View {
     @State var pearlOfGreatPrice = false
     @State var oldTestament = false
     @State var newTestament = false
+    @State var result = 1000
+    
+    var databaseWorker:DatabaseWorker = DatabaseWorker()
     
     
     var body: some View {
@@ -91,8 +94,9 @@ struct SearchView: View {
                 }
                 
                 Spacer()
+                Text("Result: \(result)")
                 Button("Search") {
-                    // Search Action Here
+                    result = databaseWorker.query()
                 }
                 .buttonStyle(CustomButton())
                 Spacer()
