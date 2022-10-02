@@ -48,11 +48,31 @@ class DatabaseWorker {
         }
     }
     
-    func query() -> Int
+    func queryWord(word: String) -> Int
     {
-        let queryString = "SELECT count(*) FROM verses WHERE scripture_text LIKE \"%God%\""
+        let queryString = "SELECT count(*) FROM searchTable WHERE scripture_text MATCH ?"
         var query: OpaquePointer? = nil
-        var result = 0
+        var result = 5
+        if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
+            sqlite3_bind_text(query, 1, word, -1, nil)
+            while sqlite3_step(query) == SQLITE_ROW {
+                result = Int(sqlite3_column_int(query, 0))
+            }
+        } else {
+            let errMsg = String(cString: sqlite3_errmsg(db))
+            print("Error: "+errMsg)
+            print("Query was not able to work")
+            result = 0
+        }
+        sqlite3_finalize(query)
+        return result
+    }
+    
+    func queryAll() -> Int
+    {
+        let queryString = "SELECT count(*) FROM searchTable"
+        var query: OpaquePointer? = nil
+        var result = 5
         if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
             while sqlite3_step(query) == SQLITE_ROW {
                 result = Int(sqlite3_column_int(query, 0))
@@ -61,6 +81,7 @@ class DatabaseWorker {
             let errMsg = String(cString: sqlite3_errmsg(db))
             print("Error: "+errMsg)
             print("Query was not able to work")
+            result = 0
         }
         sqlite3_finalize(query)
         return result
