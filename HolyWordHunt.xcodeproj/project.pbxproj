@@ -55,6 +55,16 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		8F85D00828EBA35B00DB8E01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */,
+				8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */,
+				8FFC0BB228E8D701003BE0DB /* BaseView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8F9D96C528EA480300457D47 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,12 +94,10 @@
 		8FB66C5028E3F0CC008029B1 /* HolyWordHunt */ = {
 			isa = PBXGroup;
 			children = (
-				8F5D2E0B28E943CC001E907C /* Database */,
 				8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */,
-				8FFC0BB228E8D701003BE0DB /* BaseView.swift */,
+				8F5D2E0B28E943CC001E907C /* Database */,
+				8F85D00828EBA35B00DB8E01 /* Views */,
 				8F9D96C528EA480300457D47 /* Components */,
-				8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */,
-				8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */,
 				8FB66C5528E3F0CE008029B1 /* Assets.xcassets */,
 				8FB66C5728E3F0CE008029B1 /* Preview Content */,
 			);
