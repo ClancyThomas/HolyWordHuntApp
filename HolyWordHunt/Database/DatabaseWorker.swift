@@ -48,11 +48,12 @@ class DatabaseWorker {
         }
     }
     
-    func queryWord(word: String) -> Int
+    func queryWord(word: String, ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
     {
-        let queryString = "SELECT count(*) FROM searchTable WHERE scripture_text MATCH ?"
+        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
+        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+") AND scripture_text MATCH ?"
         var query: OpaquePointer? = nil
-        var result = 5
+        var result = 0
         if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
             sqlite3_bind_text(query, 1, word, -1, nil)
             while sqlite3_step(query) == SQLITE_ROW {
@@ -68,11 +69,12 @@ class DatabaseWorker {
         return result
     }
     
-    func queryAll() -> Int
+    func queryBooks(ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
     {
-        let queryString = "SELECT count(*) FROM searchTable"
+        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
+        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+")"
         var query: OpaquePointer? = nil
-        var result = 5
+        var result = 0
         if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
             while sqlite3_step(query) == SQLITE_ROW {
                 result = Int(sqlite3_column_int(query, 0))
@@ -85,5 +87,29 @@ class DatabaseWorker {
         }
         sqlite3_finalize(query)
         return result
+    }
+    
+    func getBooks(ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> String
+    {
+        var books = ""
+        if (ot) {
+            books += "1,"
+        }
+        if (nt) {
+            books += "2,"
+        }
+        if (bom) {
+            books += "3,"
+        }
+        if (dc) {
+            books += "4,"
+        }
+        if (pgp) {
+            books += "5,"
+        }
+        if (books.count > 1) {
+            books.remove(at: books.index(before: books.endIndex))
+        }
+        return books
     }
 }
