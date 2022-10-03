@@ -26,23 +26,28 @@ struct SearchView: View {
     
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Spacer()
+        ScrollView(showsIndicators: false) {
+            TextField("Enter a word or phrase", text: $wordToSearch)
+                .frame(width:275)
+                .padding(.all, 10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:4)
+                )
+                .background((Color(red: 240/255, green: 240/255, blue: 240/255)))
+                .padding(.bottom, 30)
+                .padding(.top, 100)
+                .focused($focus)
+            
+            if (wordCount != 0 && totalCount != 0) {
+                Text("Total verses: \(totalCount)")
+                Text("Found in: \(wordCount) verses")
+                Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.2f")% of verses")
+                        .padding(.bottom, 30)
+            }
+            
                 VStack {
-                    Text("Enter a Word")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    TextField("Required", text: $wordToSearch)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width:300)
-                        .padding(.bottom, 50)
-                        .focused($focus)
-                }
-                
-                // VStack that contains all the scripture book options
-                VStack {
-                    Text("Click on Which Books to Search")
+                    Text("Select Which Books to Search")
                         .font(.title2)
                         .fontWeight(.bold)
                     Toggle("Old Testament", isOn: $oldTestament)
@@ -51,6 +56,7 @@ struct SearchView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                         )
+                        .foregroundColor(.black)
                         .padding(5)
                     Toggle("New Testament", isOn: $newTestament)
                         .toggleStyle(.button)
@@ -58,6 +64,7 @@ struct SearchView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                         )
+                        .foregroundColor(.black)
                         .padding(5)
                     Toggle("Book of Mormon", isOn: $bookOfMormon)
                         .toggleStyle(.button)
@@ -65,6 +72,7 @@ struct SearchView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                         )
+                        .foregroundColor(.black)
                         .padding(5)
                     Toggle("Pearl of Great Price", isOn: $pearlOfGreatPrice)
                         .toggleStyle(.button)
@@ -72,6 +80,7 @@ struct SearchView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                         )
+                        .foregroundColor(.black)
                         .padding(5)
                     Toggle("Doctrine and Covenants", isOn: $doctrineAndCovenants)
                         .toggleStyle(.button)
@@ -79,35 +88,23 @@ struct SearchView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                         )
+                        .foregroundColor(.black)
                         .padding(5)
-                }
-                
-                Spacer()
-                
-                Text("Total verses: \(totalCount)")
-                Text("Found in: \(wordCount) verses")
-                if(totalCount != 0) {
-                    Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.2f")% of verses")
-                }
-                
-                Button("Search") {
-                    wordCount = databaseWorker.queryWord(word: wordToSearch)
-                    totalCount = databaseWorker.queryAll()
-                }
-                .buttonStyle(SearchButton())
-                Spacer()
+                } // VStack for books
+    
+            Button("Search Now") {
+                wordCount = databaseWorker.queryWord(word: wordToSearch)
+                totalCount = databaseWorker.queryAll()
             }
-        }
+            .buttonStyle(SearchButton())
+            .padding(.top, 30)
+        } // ScrollView
+        .frame(maxWidth: .infinity)
         .overlay(
             NavigationBar()
         )
-        
-        
-        
-    }
-    
-    
-}
+    } // Body
+} // View
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
