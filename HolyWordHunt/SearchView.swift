@@ -1,7 +1,7 @@
 //
 //  SearchView.swift
 //  HolyWordHunt
-//
+// #5976b3 rgb(89,118,179) -- POTENTIAL COLOR
 //  Created by Clancy Thomas on 10/1/22.
 //
 
@@ -39,71 +39,106 @@ struct SearchView: View {
                 .padding(.top, 100)
                 .focused($focus)
             
-            if (wordCount != 0 && totalCount != 0) {
-                Text("Total verses: \(totalCount)")
-                Text("Found in: \(wordCount) verses")
-                Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.2f")% of verses")
-                        .padding(.bottom, 30)
+            if (totalCount != 0) {
+                GroupBox(label: Label("Results", systemImage: "lightbulb")) {
+                    Text("Found in: \(wordCount) verses")
+                        .padding(.top, 5)
+                    Text("Total: \(totalCount) verses")
+                    Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.0f")% of verses")
+                        .padding(.bottom, 20)
+                    HStack {
+                        Button("Save") {
+                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                        }
+                        .padding(9)
+                        .background((Color(red: 179/255, green: 150/255, blue: 89/255)))
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                        .padding(.trailing, 15)
+                        .fontWeight(.bold)
+                        Button("Clear") {
+                            totalCount = 0
+                            wordCount = 0
+                            wordToSearch = ""
+                            bookOfMormon = false
+                            doctrineAndCovenants = false
+                            pearlOfGreatPrice = false
+                            oldTestament = false
+                            newTestament = false
+                        }
+                        .padding(9)
+                        .background((Color(red: 179/255, green: 150/255, blue: 89/255)))
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                        .fontWeight(.bold)
+                    }
+                }
+                .groupBoxStyle(GroupBoxCustom())
+                .padding(.bottom, 25)
             }
             
-                VStack {
-                    Text("Select Which Books to Search")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    Toggle("Old Testament", isOn: $oldTestament)
-                        .toggleStyle(.button)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                        )
-                        .foregroundColor(.black)
-                        .padding(5)
-                    Toggle("New Testament", isOn: $newTestament)
-                        .toggleStyle(.button)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                        )
-                        .foregroundColor(.black)
-                        .padding(5)
-                    Toggle("Book of Mormon", isOn: $bookOfMormon)
-                        .toggleStyle(.button)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                        )
-                        .foregroundColor(.black)
-                        .padding(5)
-                    Toggle("Pearl of Great Price", isOn: $pearlOfGreatPrice)
-                        .toggleStyle(.button)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                        )
-                        .foregroundColor(.black)
-                        .padding(5)
-                    Toggle("Doctrine and Covenants", isOn: $doctrineAndCovenants)
-                        .toggleStyle(.button)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                        )
-                        .foregroundColor(.black)
-                        .padding(5)
-                } // VStack for books
+            VStack {
+                Text("Select Which Books to Search")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Toggle("Old Testament", isOn: $oldTestament)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+                Toggle("New Testament", isOn: $newTestament)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+                Toggle("Book of Mormon", isOn: $bookOfMormon)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+                Toggle("Pearl of Great Price", isOn: $pearlOfGreatPrice)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+                Toggle("Doctrine and Covenants", isOn: $doctrineAndCovenants)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+            } // VStack for books
     
             Button("Search Now") {
-                wordCount = databaseWorker.queryWord(word: wordToSearch)
-                totalCount = databaseWorker.queryAll()
+                
+                wordCount = databaseWorker.queryWord(word: wordToSearch, ot: oldTestament, nt: newTestament, bom: bookOfMormon, dc: doctrineAndCovenants, pgp: pearlOfGreatPrice)
+                
+                totalCount = databaseWorker.queryBooks(ot: oldTestament, nt: newTestament, bom: bookOfMormon, dc: doctrineAndCovenants, pgp: pearlOfGreatPrice)
+                
             }
             .buttonStyle(SearchButton())
             .padding(.top, 30)
+            
         } // ScrollView
         .frame(maxWidth: .infinity)
-        .overlay(
-            NavigationBar()
-        )
+        .overlay(NavigationBar())
+    
     } // Body
+    
 } // View
 
 struct SearchView_Previews: PreviewProvider {
