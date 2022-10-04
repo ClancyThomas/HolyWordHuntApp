@@ -48,7 +48,7 @@ struct SearchView: View {
                         .padding(.bottom, 20)
                     HStack {
                         Button("Save") {
-                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                            databaseWorker.insertSavedSearch(wordCount: wordCount, totalVerseCount: totalCount, ot: oldTestament, nt: newTestament, bom: bookOfMormon, dc: doctrineAndCovenants, pgp: pearlOfGreatPrice)
                         }
                         .padding(9)
                         .background((Color(red: 179/255, green: 150/255, blue: 89/255)))
