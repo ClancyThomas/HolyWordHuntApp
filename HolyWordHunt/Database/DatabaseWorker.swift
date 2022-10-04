@@ -54,9 +54,9 @@ class DatabaseWorker {
         var query: OpaquePointer? = nil
         let createTableString =
         """
-            CREATE TABLE IF NOT EXISTS savedSearches (id INTEGER PRIMARY KEY NOT NULL,
-            wordcount INTEGER, totalversecount INTEGER, oldtestament BOOL, newtestment BOOL,
-            bookOfMormon BOOL, doctrineandcovenants BOOL, pearlofgreatprice BOOL)
+            CREATE TABLE IF NOT EXISTS saved_searches (id INTEGER PRIMARY KEY NOT NULL,
+            word String, word_count INTEGER, total_verse_count INTEGER, old_testament BOOL, new_testament BOOL,
+            book_of_mormon BOOL, doctrine_and_covenants BOOL, pearl_of_great_price BOOL)
         """
         
         if sqlite3_prepare_v2(db, createTableString, -1, &query, nil) == SQLITE_OK {
@@ -72,7 +72,7 @@ class DatabaseWorker {
         }
     }
     
-    func insertSavedSearch(wordCount: Int, totalVerseCount: Int, ot: Bool, nt: Bool,
+    func insertSavedSearch(word: String, wordCount: Int, totalVerseCount: Int, ot: Bool, nt: Bool,
                            bom: Bool, dc: Bool, pgp: Bool) -> Void
     {
         var insert: OpaquePointer? = nil
@@ -81,16 +81,17 @@ class DatabaseWorker {
         let flagBom = (bom) ? 1 : 0
         let flagDc = (dc) ? 1 : 0
         let flagPgp = (pgp) ? 1 : 0
-        let insertString = "INSERT INTO savedSearches VALUES (null,?,?,?,?,?,?,?)"
+        let insertString = "INSERT INTO saved_searches VALUES (null,?,?,?,?,?,?,?,?)"
         
         if sqlite3_prepare_v2(db, insertString, -1, &insert, nil) == SQLITE_OK {
-            sqlite3_bind_int64(insert, 1, sqlite3_int64(wordCount))
-            sqlite3_bind_int64(insert, 2, sqlite3_int64(totalVerseCount))
-            sqlite3_bind_int64(insert, 3, sqlite3_int64(flagOt))
-            sqlite3_bind_int64(insert, 4, sqlite3_int64(flagNt))
-            sqlite3_bind_int64(insert, 5, sqlite3_int64(flagBom))
-            sqlite3_bind_int64(insert, 6, sqlite3_int64(flagDc))
-            sqlite3_bind_int64(insert, 7, sqlite3_int64(flagPgp))
+            sqlite3_bind_text(insert, 1, word, -1, nil)
+            sqlite3_bind_int64(insert, 2, sqlite3_int64(wordCount))
+            sqlite3_bind_int64(insert, 3, sqlite3_int64(totalVerseCount))
+            sqlite3_bind_int64(insert, 4, sqlite3_int64(flagOt))
+            sqlite3_bind_int64(insert, 5, sqlite3_int64(flagNt))
+            sqlite3_bind_int64(insert, 6, sqlite3_int64(flagBom))
+            sqlite3_bind_int64(insert, 7, sqlite3_int64(flagDc))
+            sqlite3_bind_int64(insert, 8, sqlite3_int64(flagPgp))
             if sqlite3_step(insert) == SQLITE_DONE {
                 print("Insert Success!")
             } else {
@@ -103,24 +104,57 @@ class DatabaseWorker {
         }
     }
     
-    func querySavedSearches() -> Int
-    {
-        let queryString = "SELECT count(*) FROM savedSearches"
+    func queryAllSavedSearches() -> [Search]  {
+        
+        let queryString =
+        """
+        SELECT word, word_count, total_verse_count, old_testament, new_testament, book_of_mormon,
+        doctrine_and_covenants, pearl_of_great_price FROM saved_searches
+        """
         var query: OpaquePointer? = nil
-        var result = 0
+        var savedSearches: [Search] = []
         if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
             while sqlite3_step(query) == SQLITE_ROW {
-                result = Int(sqlite3_column_int(query, 0))
+                let word = String(describing: String(cString: sqlite3_column_text(query, 1)))
+                let wordCount = Int(sqlite3_column_int(query, 1))
+                let totalVerseCount = Int(sqlite3_column_int(query, 2))
+                let oldTestament = Int(sqlite3_column_int(query, 3)) == 0 ? false : true
+                let newTestament = Int(sqlite3_column_int(query, 4)) == 0 ? false : true
+                let bookOfMormon = Int(sqlite3_column_int(query, 5)) == 0 ? false : true
+                let doctrineAndCovenants = Int(sqlite3_column_int(query, 6)) == 0 ? false : true
+                let pearlOfGreatPrice = Int(sqlite3_column_int(query, 7)) == 0 ? false : true
+                
+                savedSearches.append(Search(word: word, wordCount: wordCount, totalVerseCount: totalVerseCount, oldTestament: oldTestament, newTestament: newTestament, bookOfMormon: bookOfMormon, doctrineAndCovenants: doctrineAndCovenants, pearlOfGreatPrice: pearlOfGreatPrice))
             }
         } else {
             let errMsg = String(cString: sqlite3_errmsg(db))
             print("Error: "+errMsg)
             print("Query was not able to work")
-            result = 0
+
         }
         sqlite3_finalize(query)
-        return result
+
+        return savedSearches
     }
+    
+//    func querySavedSearches() -> Int
+//    {
+//        let queryString = "SELECT * FROM savedSearches"
+//        var query: OpaquePointer? = nil
+//        var result = 0
+//        if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
+//            while sqlite3_step(query) == SQLITE_ROW {
+//                result = Int(sqlite3_column_int(query, 0))
+//            }
+//        } else {
+//            let errMsg = String(cString: sqlite3_errmsg(db))
+//            print("Error: "+errMsg)
+//            print("Query was not able to work")
+//            result = 0
+//        }
+//        sqlite3_finalize(query)
+//        return result
+//    }
     
     func queryWord(word: String, ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
     {
