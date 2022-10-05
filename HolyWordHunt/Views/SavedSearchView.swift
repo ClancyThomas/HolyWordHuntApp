@@ -17,6 +17,7 @@ struct SavedSearchView: View {
                 .padding(.top, 50)
             ForEach (viewModel.savedSearches) { Search in
                 SavedSearchRow(search: Search)
+                    .onTapGesture{}
                     .onLongPressGesture {
                         viewModel.deleteSavedSearch(id: Search.id)
                         viewModel.updateSavedSearches()
@@ -25,6 +26,7 @@ struct SavedSearchView: View {
             }
             
         }
+        .frame(maxWidth: .infinity)
         .overlay(NavigationBar(title: "Saved Searches"))
         .onAppear{viewModel.updateSavedSearches()}
     }

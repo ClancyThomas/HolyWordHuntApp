@@ -44,7 +44,7 @@ struct SearchView: View {
                     Text("Found in: \(wordCount) verses")
                         .padding(.top, 5)
                     Text("Total: \(totalCount) verses")
-                    Text("\(round((Double(wordCount)/Double(totalCount))*100),specifier:"%.0f")% of verses")
+                    Text("\(Double(wordCount)/Double(totalCount)*100,specifier:"%.2f")% of verses")
                         .padding(.bottom, 20)
                     HStack {
                         Button("Save") {

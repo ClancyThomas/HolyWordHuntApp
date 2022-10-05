@@ -22,7 +22,7 @@ struct SavedSearchRow: View {
                         .fontWeight(.bold)
                         .padding(.leading, 30)
                     Spacer()
-                    Text("Appears: \(search.wordCount) times")
+                    Text("Appears in: \(search.wordCount) verses")
                         .padding(.trailing, 30)
                 }
                 HStack {
