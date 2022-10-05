@@ -10,6 +10,9 @@
 		8F5D2E0D28E943F1001E907C /* DatabaseWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D2E0C28E943F1001E907C /* DatabaseWorker.swift */; };
 		8F5D2E0F28E9590B001E907C /* scriptures.db in Resources */ = {isa = PBXBuildFile; fileRef = 8F5D2E0E28E9590B001E907C /* scriptures.db */; };
 		8F649E5C28EB7047009BFD18 /* GroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F649E5B28EB7047009BFD18 /* GroupBox.swift */; };
+		8F67B5A228ECE39F0007CE4A /* SavedSearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F67B5A128ECE39F0007CE4A /* SavedSearchRow.swift */; };
+		8F85D00A28EBB34200DB8E01 /* SearchObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F85D00928EBB34200DB8E01 /* SearchObject.swift */; };
+		8F85D00C28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F85D00B28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift */; };
 		8F9D96C228EA47D800457D47 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D96C128EA47D800457D47 /* NavigationBar.swift */; };
 		8F9D96C428EA47DD00457D47 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D96C328EA47DD00457D47 /* SearchButton.swift */; };
 		8FB66C5228E3F0CC008029B1 /* HolyWordHuntApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */; };
@@ -24,6 +27,9 @@
 		8F5D2E0C28E943F1001E907C /* DatabaseWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseWorker.swift; sourceTree = "<group>"; };
 		8F5D2E0E28E9590B001E907C /* scriptures.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = scriptures.db; sourceTree = "<group>"; };
 		8F649E5B28EB7047009BFD18 /* GroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBox.swift; sourceTree = "<group>"; };
+		8F67B5A128ECE39F0007CE4A /* SavedSearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SavedSearchRow.swift; path = HolyWordHunt/SavedSearchRow.swift; sourceTree = SOURCE_ROOT; };
+		8F85D00928EBB34200DB8E01 /* SearchObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObject.swift; sourceTree = "<group>"; };
+		8F85D00B28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataSavedSearch.swift; sourceTree = "<group>"; };
 		8F9D96C128EA47D800457D47 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		8F9D96C328EA47DD00457D47 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		8FB66C4E28E3F0CC008029B1 /* ScriptureWordCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptureWordCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,9 +61,19 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		8F67B5A028ECDDCC0007CE4A /* ModelData */ = {
+			isa = PBXGroup;
+			children = (
+				8F85D00928EBB34200DB8E01 /* SearchObject.swift */,
+				8F85D00B28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift */,
+			);
+			path = ModelData;
+			sourceTree = "<group>";
+		};
 		8F85D00828EBA35B00DB8E01 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8F9D96C528EA480300457D47 /* Components */,
 				8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */,
 				8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */,
 				8FFC0BB228E8D701003BE0DB /* BaseView.swift */,
@@ -68,6 +84,7 @@
 		8F9D96C528EA480300457D47 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8F67B5A128ECE39F0007CE4A /* SavedSearchRow.swift */,
 				8F9D96C128EA47D800457D47 /* NavigationBar.swift */,
 				8F649E5B28EB7047009BFD18 /* GroupBox.swift */,
 				8F9D96C328EA47DD00457D47 /* SearchButton.swift */,
@@ -95,9 +112,9 @@
 			isa = PBXGroup;
 			children = (
 				8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */,
+				8F67B5A028ECDDCC0007CE4A /* ModelData */,
 				8F5D2E0B28E943CC001E907C /* Database */,
 				8F85D00828EBA35B00DB8E01 /* Views */,
-				8F9D96C528EA480300457D47 /* Components */,
 				8FB66C5528E3F0CE008029B1 /* Assets.xcassets */,
 				8FB66C5728E3F0CE008029B1 /* Preview Content */,
 			);
@@ -188,8 +205,11 @@
 				8F5D2E0D28E943F1001E907C /* DatabaseWorker.swift in Sources */,
 				8FFC0BB128E8D3E8003BE0DB /* SearchView.swift in Sources */,
 				8FFC0BB328E8D701003BE0DB /* BaseView.swift in Sources */,
+				8F85D00C28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift in Sources */,
+				8F67B5A228ECE39F0007CE4A /* SavedSearchRow.swift in Sources */,
 				8FB66C5228E3F0CC008029B1 /* HolyWordHuntApp.swift in Sources */,
 				8F9D96C228EA47D800457D47 /* NavigationBar.swift in Sources */,
+				8F85D00A28EBB34200DB8E01 /* SearchObject.swift in Sources */,
 				8F649E5C28EB7047009BFD18 /* GroupBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
