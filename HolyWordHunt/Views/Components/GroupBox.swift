@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Custom group box with a colored background
 struct GroupBoxCustom: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack {

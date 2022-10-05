@@ -8,24 +8,27 @@
 import Foundation
 import SQLite3
 
+// Handles all the actions with the SQLite3 Database
 class DatabaseWorker {
     
-    let dbName = "scriptures.db"
-    var db:OpaquePointer?
+    let databaseName = "scriptures.db"
+    var database: OpaquePointer?
     
     init()
     {
-        db = openDatabase()
+        database = connectToDatabase()
         createTable()
     }
     
-    func openDatabase() -> OpaquePointer?
+    // Connect with the database
+    func connectToDatabase() -> OpaquePointer?
     {
         let fileManager = FileManager.default
+        var database: OpaquePointer? = nil
         let fileURL = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                    .appendingPathComponent(dbName)
-        var db: OpaquePointer? = nil
-        
+                    .appendingPathComponent(databaseName)
+       
+        // Check if the file exists on local device, copy the database if it doesn't already exist
         if !fileManager.fileExists(atPath: fileURL.path) {
                 print("De")
                 let dbResourcePath = Bundle.main.path(forResource: "scriptures", ofType: "db")
@@ -37,18 +40,20 @@ class DatabaseWorker {
                 }
         }
         
-        if sqlite3_open(fileURL.path, &db) == SQLITE_OK
+        // Open the connection to the database
+        if sqlite3_open(fileURL.path, &database) == SQLITE_OK
         {
-            print("Successfully opened connection to database at \(dbName)")
-            return db
+            print("Successfully opened connection to: \(databaseName)")
+            return database
         }
         else
         {
-            print("Error opening the database!!!")
+            print("Error opening the database!")
             return nil
         }
     }
     
+    // Create the table that will be used to store saved searches
     func createTable() -> Void
     {
         var query: OpaquePointer? = nil
@@ -59,31 +64,85 @@ class DatabaseWorker {
             book_of_mormon BOOL, doctrine_and_covenants BOOL, pearl_of_great_price BOOL)
         """
         
-        if sqlite3_prepare_v2(db, createTableString, -1, &query, nil) == SQLITE_OK {
+        if sqlite3_prepare_v2(database, createTableString, -1, &query, nil) == SQLITE_OK {
             if sqlite3_step(query) == SQLITE_DONE {
                 print("Table created successfully!")
             } else {
                 print("Table not created!")
             }
         } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
+            let errMsg = String(cString: sqlite3_errmsg(database))
             print("Error: "+errMsg)
             print("Create Table was not able to work")
         }
     }
     
+    // Search for a word in specified books - Count how many verses it appears in
+    func queryWord(word: String, ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
+    {
+        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
+        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+") AND scripture_text MATCH ?"
+        var query: OpaquePointer? = nil
+        
+        var result = 0
+        
+        if sqlite3_prepare_v2(database, queryString, -1, &query, nil) == SQLITE_OK {
+            sqlite3_bind_text(query, 1, word, -1, nil)
+            while sqlite3_step(query) == SQLITE_ROW {
+                result = Int(sqlite3_column_int(query, 0))
+            }
+        } else {
+            let errMsg = String(cString: sqlite3_errmsg(database))
+            print("Error: "+errMsg)
+            print("Query was not able to work")
+            result = 0
+        }
+        
+        sqlite3_finalize(query)
+        
+        return result
+    }
+    
+    // Search for the total amount of verses in specified books
+    func queryBooks(ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
+    {
+        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
+        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+")"
+        var query: OpaquePointer? = nil
+        
+        var result = 0
+        
+        if sqlite3_prepare_v2(database, queryString, -1, &query, nil) == SQLITE_OK {
+            while sqlite3_step(query) == SQLITE_ROW {
+                result = Int(sqlite3_column_int(query, 0))
+            }
+        } else {
+            let errMsg = String(cString: sqlite3_errmsg(database))
+            print("Error: "+errMsg)
+            print("Query was not able to work")
+            result = 0
+        }
+        
+        sqlite3_finalize(query)
+        
+        return result
+    }
+    
+    // Insert the data for a saved search
     func insertSavedSearch(word: String, wordCount: Int, totalVerseCount: Int, ot: Bool, nt: Bool,
                            bom: Bool, dc: Bool, pgp: Bool) -> Void
     {
-        var insert: OpaquePointer? = nil
+        // Convert the boolean values to integers - SQLite only handles integers NOT boolean
         let flagOt = (ot) ? 1 : 0
         let flagNt = (nt) ? 1 : 0
         let flagBom = (bom) ? 1 : 0
         let flagDc = (dc) ? 1 : 0
         let flagPgp = (pgp) ? 1 : 0
-        let insertString = "INSERT INTO saved_searches VALUES (null,?,?,?,?,?,?,?,?)"
         
-        if sqlite3_prepare_v2(db, insertString, -1, &insert, nil) == SQLITE_OK {
+        let insertString = "INSERT INTO saved_searches VALUES (null,?,?,?,?,?,?,?,?)"
+        var insert: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(database, insertString, -1, &insert, nil) == SQLITE_OK {
             sqlite3_bind_text(insert, 1, word, -1, nil)
             sqlite3_bind_int64(insert, 2, sqlite3_int64(wordCount))
             sqlite3_bind_int64(insert, 3, sqlite3_int64(totalVerseCount))
@@ -98,13 +157,15 @@ class DatabaseWorker {
                 print("Insert failure!")
             }
         } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
+            let errMsg = String(cString: sqlite3_errmsg(database))
             print("Error: "+errMsg)
             print("Insert was not able to work")
         }
+        
         sqlite3_finalize(insert)
     }
     
+    // Search for all the saved searches
     func queryAllSavedSearches() -> [Search]  {
         
         let queryString =
@@ -113,8 +174,10 @@ class DatabaseWorker {
         doctrine_and_covenants, pearl_of_great_price FROM saved_searches
         """
         var query: OpaquePointer? = nil
+        
         var savedSearches: [Search] = []
-        if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
+        
+        if sqlite3_prepare_v2(database, queryString, -1, &query, nil) == SQLITE_OK {
             while sqlite3_step(query) == SQLITE_ROW {
                 let rowid = Int(sqlite3_column_int(query, 0))
                 let word = String(describing: String(cString: sqlite3_column_text(query, 1)))
@@ -129,63 +192,24 @@ class DatabaseWorker {
                 savedSearches.append(Search(id: rowid, word: word, wordCount: wordCount, totalVerseCount: totalVerseCount, oldTestament: oldTestament, newTestament: newTestament, bookOfMormon: bookOfMormon, doctrineAndCovenants: doctrineAndCovenants, pearlOfGreatPrice: pearlOfGreatPrice))
             }
         } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
+            let errMsg = String(cString: sqlite3_errmsg(database))
             print("Error: "+errMsg)
             print("Query was not able to work")
 
         }
+        
         sqlite3_finalize(query)
 
         return savedSearches
     }
     
-    
-    func queryWord(word: String, ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
-    {
-        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
-        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+") AND scripture_text MATCH ?"
-        var query: OpaquePointer? = nil
-        var result = 0
-        if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
-            sqlite3_bind_text(query, 1, word, -1, nil)
-            while sqlite3_step(query) == SQLITE_ROW {
-                result = Int(sqlite3_column_int(query, 0))
-            }
-        } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
-            print("Error: "+errMsg)
-            print("Query was not able to work")
-            result = 0
-        }
-        sqlite3_finalize(query)
-        return result
-    }
-    
-    func queryBooks(ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> Int
-    {
-        let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
-        let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+")"
-        var query: OpaquePointer? = nil
-        var result = 0
-        if sqlite3_prepare_v2(db, queryString, -1, &query, nil) == SQLITE_OK {
-            while sqlite3_step(query) == SQLITE_ROW {
-                result = Int(sqlite3_column_int(query, 0))
-            }
-        } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
-            print("Error: "+errMsg)
-            print("Query was not able to work")
-            result = 0
-        }
-        sqlite3_finalize(query)
-        return result
-    }
-    
-    func deleteSearch(id: Int) -> Void
+    // Delete a saved search by id
+    func deleteSavedSearch(id: Int) -> Void
     {
         let deleteString = "DELETE FROM saved_searches WHERE id = ?"
         var delete: OpaquePointer? = nil
-        if sqlite3_prepare_v2(db, deleteString, -1, &delete, nil) == SQLITE_OK {
+        
+        if sqlite3_prepare_v2(database, deleteString, -1, &delete, nil) == SQLITE_OK {
             sqlite3_bind_int64(delete, 1, sqlite3_int64(id))
             if sqlite3_step(delete) == SQLITE_DONE {
                 print("Delete Success!")
@@ -193,13 +217,15 @@ class DatabaseWorker {
                 print("Delete failure!")
             }
         } else {
-            let errMsg = String(cString: sqlite3_errmsg(db))
+            let errMsg = String(cString: sqlite3_errmsg(database))
             print("Error: "+errMsg)
             print("Delete was not able to work")
         }
+        
         sqlite3_finalize(delete)
     }
     
+    // Used to convert boolean values for the books into their ids within the database
     func getBooks(ot: Bool, nt: Bool, bom: Bool, dc: Bool, pgp: Bool) -> String
     {
         var books = ""
@@ -218,9 +244,11 @@ class DatabaseWorker {
         if (pgp) {
             books += "5,"
         }
-        if (books.count > 1) {
+        
+        if (books.count > 1) { // Remove the ending comma if there is anything concatenated
             books.remove(at: books.index(before: books.endIndex))
         }
+        
         return books
     }
 }

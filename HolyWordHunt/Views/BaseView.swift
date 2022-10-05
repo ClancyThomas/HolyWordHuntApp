@@ -10,6 +10,7 @@ import SwiftUI
 struct BaseView: View {
     var body: some View {
         TabView {
+            
             SearchView()
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
@@ -18,10 +19,11 @@ struct BaseView: View {
                 .tabItem {
                     Label("Saved", systemImage: "bookmark")
                 }
-        }
+        } // TabView
         
-    }
-}
+    } // Body
+    
+} // View
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

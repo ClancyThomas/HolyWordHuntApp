@@ -8,29 +8,32 @@
 import SwiftUI
 
 struct SavedSearchView: View {
-    @StateObject var viewModel = SavedSearchModelData()
     
+    @StateObject var modelData = SavedSearchModelData()
     
     var body: some View {
         ScrollView(showsIndicators: false) {
+            
             Text("")
-                .padding(.top, 50)
-            ForEach (viewModel.savedSearches) { Search in
+                .padding(.top, 50) // Used to push the view down below nav bar
+            
+            ForEach (modelData.savedSearches) { Search in
                 SavedSearchRow(search: Search)
-                    .onTapGesture{}
+                    .onTapGesture{} // Used to keep scrolling smooth, but still allow a long press to delete
                     .onLongPressGesture {
-                        viewModel.deleteSavedSearch(id: Search.id)
-                        viewModel.updateSavedSearches()
+                        modelData.deleteSavedSearch(id: Search.id)
+                        modelData.updateSavedSearches()
                     }
-                    
             }
             
-        }
+        } // ScrollView
         .frame(maxWidth: .infinity)
         .overlay(NavigationBar(title: "Saved Searches"))
-        .onAppear{viewModel.updateSavedSearches()}
-    }
-}
+        .onAppear{modelData.updateSavedSearches()}
+        
+    } // Body
+    
+} // View
 
 struct SavedSearchView_Previews: PreviewProvider {
     static var previews: some View {

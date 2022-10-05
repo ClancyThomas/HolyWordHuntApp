@@ -7,7 +7,9 @@
 
 import Foundation
 
+// Object that is used to save/display saved searches
 struct Search: Identifiable {
+    
     var id: Int
     var word: String
     var wordCount: Int
@@ -17,10 +19,10 @@ struct Search: Identifiable {
     var bookOfMormon: Bool
     var doctrineAndCovenants: Bool
     var pearlOfGreatPrice: Bool
-    var booksString: String
     
     init(id: Int, word: String, wordCount: Int, totalVerseCount: Int, oldTestament: Bool, newTestament: Bool,
-         bookOfMormon: Bool, doctrineAndCovenants: Bool, pearlOfGreatPrice: Bool) {
+         bookOfMormon: Bool, doctrineAndCovenants: Bool, pearlOfGreatPrice: Bool)
+    {
         self.id = id
         self.word = word
         self.wordCount = wordCount
@@ -30,8 +32,9 @@ struct Search: Identifiable {
         self.bookOfMormon = bookOfMormon
         self.doctrineAndCovenants = doctrineAndCovenants
         self.pearlOfGreatPrice = pearlOfGreatPrice
-        self.booksString = booksToString()
+    }
         
+    // Function that turns boolean book values into a string
     func booksToString() -> String
     {
         var books = ""
@@ -50,12 +53,13 @@ struct Search: Identifiable {
         if (pearlOfGreatPrice) {
             books += "PGP, "
         }
-        if (books.count > 2) {
+        
+        if (books.count > 2) { // Remove the comma and space at the end as long as there is some value
             books.remove(at: books.index(before: books.endIndex))
             books.remove(at: books.index(before: books.endIndex))
         }
+        
         return books
     }
-        
-    }
+    
 }
