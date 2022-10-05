@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct NavigationBar: View {
-    
+    var title: String
     
     var body: some View {
         ZStack {
             Color.clear
                 .background(Color(red: 179/255, green: 150/255, blue: 89/255))
             HStack{
-                Text("Search")
+                Text(title)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -32,6 +32,6 @@ struct NavigationBar: View {
 
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationBar()
+        NavigationBar(title: "Hello")
     }
 }

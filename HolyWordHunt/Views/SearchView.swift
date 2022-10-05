@@ -135,7 +135,7 @@ struct SearchView: View {
             
         } // ScrollView
         .frame(maxWidth: .infinity)
-        .overlay(NavigationBar())
+        .overlay(NavigationBar(title: "Search"))
     
     } // Body
     
