@@ -32,7 +32,7 @@
 		8F85D00B28EBB4CC00DB8E01 /* ModelDataSavedSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataSavedSearch.swift; sourceTree = "<group>"; };
 		8F9D96C128EA47D800457D47 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		8F9D96C328EA47DD00457D47 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
-		8FB66C4E28E3F0CC008029B1 /* ScriptureWordCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptureWordCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FB66C4E28E3F0CC008029B1 /* HolyWordHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HolyWordHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolyWordHuntApp.swift; sourceTree = "<group>"; };
 		8FB66C5528E3F0CE008029B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FB66C5828E3F0CE008029B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 		8FB66C4F28E3F0CC008029B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8FB66C4E28E3F0CC008029B1 /* ScriptureWordCounter.app */,
+				8FB66C4E28E3F0CC008029B1 /* HolyWordHunt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,9 +132,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8FB66C4D28E3F0CC008029B1 /* ScriptureWordCounter */ = {
+		8FB66C4D28E3F0CC008029B1 /* HolyWordHunt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8FB66C5C28E3F0CE008029B1 /* Build configuration list for PBXNativeTarget "ScriptureWordCounter" */;
+			buildConfigurationList = 8FB66C5C28E3F0CE008029B1 /* Build configuration list for PBXNativeTarget "HolyWordHunt" */;
 			buildPhases = (
 				8FB66C4A28E3F0CC008029B1 /* Sources */,
 				8FB66C4B28E3F0CC008029B1 /* Frameworks */,
@@ -144,9 +144,9 @@
 			);
 			dependencies = (
 			);
-			name = ScriptureWordCounter;
+			name = HolyWordHunt;
 			productName = ScriptureWordCounter;
-			productReference = 8FB66C4E28E3F0CC008029B1 /* ScriptureWordCounter.app */;
+			productReference = 8FB66C4E28E3F0CC008029B1 /* HolyWordHunt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +177,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8FB66C4D28E3F0CC008029B1 /* ScriptureWordCounter */,
+				8FB66C4D28E3F0CC008029B1 /* HolyWordHunt */,
 			);
 		};
 /* End PBXProject section */
@@ -357,7 +357,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.clancythomas.HolyWordHunt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HolyWordHunt;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -390,7 +390,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.clancythomas.HolyWordHunt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HolyWordHunt;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -409,7 +409,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8FB66C5C28E3F0CE008029B1 /* Build configuration list for PBXNativeTarget "ScriptureWordCounter" */ = {
+		8FB66C5C28E3F0CE008029B1 /* Build configuration list for PBXNativeTarget "HolyWordHunt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FB66C5D28E3F0CE008029B1 /* Debug */,
