@@ -50,7 +50,7 @@ struct SearchView: View {
                         Button("Save") {
                             databaseWorker.insertSavedSearch(word: wordToSearch, wordCount: wordCount, totalVerseCount: totalCount, ot: oldTestament, nt: newTestament, bom: bookOfMormon, dc: doctrineAndCovenants, pgp: pearlOfGreatPrice)
                         }
-                        .padding(9)
+                        .padding(8)
                         .background((Color(red: 179/255, green: 150/255, blue: 89/255)))
                         .cornerRadius(10)
                         .foregroundColor(.black)
@@ -66,7 +66,7 @@ struct SearchView: View {
                             oldTestament = false
                             newTestament = false
                         }
-                        .padding(9)
+                        .padding(8)
                         .background((Color(red: 179/255, green: 150/255, blue: 89/255)))
                         .cornerRadius(10)
                         .foregroundColor(.black)
@@ -81,32 +81,33 @@ struct SearchView: View {
                 Text("Select Which Books to Search")
                     .font(.title2)
                     .fontWeight(.bold)
-                Toggle("Old Testament", isOn: $oldTestament)
+                Toggle(isOn: $oldTestament) {
+                    Text("Old Testament").frame(width: 185)
+                }
                     .toggleStyle(.button)
+                    .frame(width:210)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                     )
                     .foregroundColor(.black)
                     .padding(5)
-                Toggle("New Testament", isOn: $newTestament)
+                Toggle(isOn: $newTestament) {
+                    Text("New Testament").frame(width: 185)
+                }
                     .toggleStyle(.button)
+                    .frame(width:210)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
                     )
                     .foregroundColor(.black)
                     .padding(5)
-                Toggle("Book of Mormon", isOn: $bookOfMormon)
+                Toggle(isOn: $bookOfMormon) {
+                    Text("Book of Mormon").frame(width: 185)
+                }
                     .toggleStyle(.button)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
-                    )
-                    .foregroundColor(.black)
-                    .padding(5)
-                Toggle("Pearl of Great Price", isOn: $pearlOfGreatPrice)
-                    .toggleStyle(.button)
+                    .frame(width:210)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
@@ -114,6 +115,18 @@ struct SearchView: View {
                     .foregroundColor(.black)
                     .padding(5)
                 Toggle("Doctrine and Covenants", isOn: $doctrineAndCovenants)
+                    .frame(width:210)
+                    .toggleStyle(.button)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(red: 179/255, green: 150/255, blue: 89/255), lineWidth:2)
+                    )
+                    .foregroundColor(.black)
+                    .padding(5)
+                Toggle(isOn: $pearlOfGreatPrice) {
+                    Text("Pearl of Great Price").frame(width: 185)
+                    }
+                    .frame(width:210)
                     .toggleStyle(.button)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)

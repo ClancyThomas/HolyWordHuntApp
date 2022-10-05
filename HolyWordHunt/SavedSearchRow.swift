@@ -9,36 +9,37 @@ import SwiftUI
 
 struct SavedSearchRow: View {
     var search : Search
-    
+        
     var body: some View {
-        ZStack {
+        ZStack{
             RoundedRectangle(cornerRadius: 25)
                 .fill(Color(red: 176/255, green: 196/255, blue: 222/255))
-                .frame(width: 350, height: 115)
+                .frame(width: UIScreen.main.bounds.width-40, height: 125)
             VStack {
                 HStack {
                     Text(search.word)
                         .font(.title)
                         .fontWeight(.bold)
-                        .padding(.leading, 30)
+                        .frame(height: 40)
+                        .padding(.leading, 40)
+                        .truncationMode(.tail)
                     Spacer()
                     Text("Appears in: \(search.wordCount) verses")
-                        .padding(.trailing, 30)
+                        .padding(.trailing, 40)
                 }
                 HStack {
                     Text("Books: \(search.booksString)")
-                        .padding(.leading, 30)
+                        .padding(.leading, 40)
                     Spacer()
                     
                 }
                 HStack {
                     Text("Total Verses: \(search.totalVerseCount)")
-                        .padding(.leading, 30)
+                        .padding(.leading, 40)
                     Spacer()
                 }
             }
         }
-        
     }
 }
 
