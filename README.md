@@ -4,7 +4,7 @@ Holy Word Hunt is an app that allows the user to search for a word or phrase wit
 
 I had created a simple version of this idea in Python a year or so ago, but it was annoying to use and it would just loop through a whole text file looking for a word. I wanted a faster way to accomplish this and I wanted it to be in a format that would be easy to use so I decided to create an app. 
 
-[Software Demo Video](ADD LINK HERE)
+[Software Demo Video](https://youtu.be/wVhWy8cOnCQ)
 
 # Development Environment
 
@@ -20,7 +20,7 @@ I had created a simple version of this idea in Python a year or so ago, but it w
     * Helpful resource that teaches how to create a dynamic layout based on model data
 * [SQLite Full Text Search 5](https://www.sqlite.org/fts5.html)
     * Documentation on the FTS5 and how to use it
-* [SQLite  ScripturesDatabase](https://scriptures.nephi.org/sqlite)
+* [SQLite  Scriptures Database](https://scriptures.nephi.org/sqlite)
     * SQLite database that was used for this project 
 * [Using SQLite and Swift](https://www.raywenderlich.com/6620276-sqlite-with-swift-tutorial-getting-started)
     * Basic tutorial on how to use SQLite database in swift project
