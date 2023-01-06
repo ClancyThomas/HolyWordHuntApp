@@ -36,6 +36,7 @@
 		8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolyWordHuntApp.swift; sourceTree = "<group>"; };
 		8FB66C5528E3F0CE008029B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FB66C5828E3F0CE008029B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8FC51F68296893D900A84372 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8FFC0BB228E8D701003BE0DB /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSearchView.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		8FB66C5028E3F0CC008029B1 /* HolyWordHunt */ = {
 			isa = PBXGroup;
 			children = (
+				8FC51F68296893D900A84372 /* Info.plist */,
 				8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */,
 				8F67B5A028ECDDCC0007CE4A /* ModelData */,
 				8F5D2E0B28E943CC001E907C /* Database */,
@@ -342,9 +344,9 @@
 				DEVELOPMENT_TEAM = SBH42U9C4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HolyWordHunt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Holy Hunt";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -375,9 +377,9 @@
 				DEVELOPMENT_TEAM = SBH42U9C4V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HolyWordHunt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Holy Hunt";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
