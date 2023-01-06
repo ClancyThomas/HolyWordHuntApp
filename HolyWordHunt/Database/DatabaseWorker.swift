@@ -83,11 +83,10 @@ class DatabaseWorker {
         let books = getBooks(ot: ot, nt: nt, bom: bom, dc: dc, pgp: pgp)
         let queryString = "SELECT count(*) FROM searchTable WHERE volume_id IN ("+books+") AND scripture_text MATCH ?"
         var query: OpaquePointer? = nil
-        
         var result = 0
         
         if sqlite3_prepare_v2(database, queryString, -1, &query, nil) == SQLITE_OK {
-            sqlite3_bind_text(query, 1, word, -1, nil)
+            sqlite3_bind_text(query, 1, NSString(string: word).utf8String, -1, nil)
             while sqlite3_step(query) == SQLITE_ROW {
                 result = Int(sqlite3_column_int(query, 0))
             }
@@ -143,7 +142,7 @@ class DatabaseWorker {
         var insert: OpaquePointer? = nil
         
         if sqlite3_prepare_v2(database, insertString, -1, &insert, nil) == SQLITE_OK {
-            sqlite3_bind_text(insert, 1, word, -1, nil)
+            sqlite3_bind_text(insert, 1, NSString(string: word).utf8String, -1, nil)
             sqlite3_bind_int64(insert, 2, sqlite3_int64(wordCount))
             sqlite3_bind_int64(insert, 3, sqlite3_int64(totalVerseCount))
             sqlite3_bind_int64(insert, 4, sqlite3_int64(flagOt))
