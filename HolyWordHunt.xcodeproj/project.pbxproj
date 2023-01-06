@@ -18,6 +18,7 @@
 		8FB66C5228E3F0CC008029B1 /* HolyWordHuntApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB66C5128E3F0CC008029B1 /* HolyWordHuntApp.swift */; };
 		8FB66C5628E3F0CE008029B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB66C5528E3F0CE008029B1 /* Assets.xcassets */; };
 		8FB66C5928E3F0CE008029B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB66C5828E3F0CE008029B1 /* Preview Assets.xcassets */; };
+		8FC51F6A2968A2C200A84372 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC51F692968A2C200A84372 /* HomeView.swift */; };
 		8FFC0BB128E8D3E8003BE0DB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */; };
 		8FFC0BB328E8D701003BE0DB /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB228E8D701003BE0DB /* BaseView.swift */; };
 		8FFC0BB728E8E5AE003BE0DB /* SavedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */; };
@@ -78,6 +79,7 @@
 				8FFC0BB628E8E5AE003BE0DB /* SavedSearchView.swift */,
 				8FFC0BB028E8D3E8003BE0DB /* SearchView.swift */,
 				8FFC0BB228E8D701003BE0DB /* BaseView.swift */,
+				8FC51F692968A2C200A84372 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +213,7 @@
 				8F67B5A228ECE39F0007CE4A /* SavedSearchRow.swift in Sources */,
 				8FB66C5228E3F0CC008029B1 /* HolyWordHuntApp.swift in Sources */,
 				8F9D96C228EA47D800457D47 /* NavigationBar.swift in Sources */,
+				8FC51F6A2968A2C200A84372 /* HomeView.swift in Sources */,
 				8F85D00A28EBB34200DB8E01 /* SearchObject.swift in Sources */,
 				8F649E5C28EB7047009BFD18 /* GroupBox.swift in Sources */,
 			);
